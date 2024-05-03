@@ -25,6 +25,10 @@ app.get("/", (req, res) => {
   res.render(__dirname + "/views/index.ejs");
 });
 
+//Require routes
+const stock = require('./routes/stock.routes');
+app.use('/api/stock', stock);
+
 var server = app.listen(port, function (error) {
   if (error) throw error;
   console.log("Express server listening on port, ", port);
