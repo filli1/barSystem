@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vareflyt</title>
+<link rel="stylesheet" href="./css/style.css">
+<script src="./scripts/stock.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="./" class="back-arrow">&larr;</a>
+            <div class="logo">
+                <img src="./img/gimleLogoHvid.png" alt="Gimle Logo">
+            </div>
+            <h1>vareflyt</h1>
+        </header>
+        <div class="form-group">
+            <label for="from-location">Fra</label>
+            <select id="from-location" class="location-list">
+                <!-- Additional options can be added here -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="to-location">Til</label>
+            <select id="to-location" class="location-list">
+                <!-- Additional options can be added here -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="product">Produkt</label>
+            <select id="product" class="product-list">
+                <!-- Additional options can be added here -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Antal</label>
+            <input type="number" id="quantity" class="quantity-input">
+        </div>
+        <div class="stock-info">
+            <div class="stock-item">
+                <div class="stock-title" id="locationFromName">Beholdning Lager</div>
+                <div class="stock-count" id="locationFromStock">29</div>
+            </div>
+            <div class="stock-item">
+                <div class="stock-title" id="locationToName">Beholdning Bar</div>
+                <div class="stock-count" id="locationToStock">5</div>
+            </div>
+        </div>
+        <button class="confirm-button">Bekræft Vareflyt</button>
+    </div>
+</body>
+</html>

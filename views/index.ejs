@@ -1,54 +1,47 @@
 <!DOCTYPE html>
-<html style="height: 100%">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>My Web Page</title>
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gimle App Interface</title>
+<link rel="stylesheet" href="./css/style.css">
 </head>
-<body class="indexPage">
+<body>
     <div class="container">
-        <h1 class="text-center p-2">Welcome to My Web Page</h1>
-        <div class="row centered-row p-2">
-
-            <!-- Different login buttons-->
-            <div class="col-md-auto">
-                <div class="card" style="width: 18rem;">
-                    <img src="img/bar.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">BAR</h5>
-                      <p class="card-text">Tryk her hvis du står i baren</p>
-                      <a href="#" class="btn btn-primary">Log på</a>
-                    </div>
-                </div>
+        <header>
+            <div class="logo">
+                <img src="./img/gimleLogoHvid.png" alt="Gimle Logo">
             </div>
-
-            <div class="col-md-auto">
-                <div class="card" style="width: 18rem;">
-                    <img src="img/bar.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">LAGER</h5>
-                      <p class="card-text">Tryk her hvis du står på lageret</p>
-                      <a href="#" class="btn btn-primary">Log på</a>
-                    </div>
-                </div>
+            <div class="greeting">
+                Hej Anna! 👋
             </div>
-
-            <div class="col-md-auto">
-                <div class="card" style="width: 18rem;">
-                    <img src="img/bar.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">OPRET STAGEHAND</h5>
-                      <p class="card-text">Opret dit som stagehand i dag</p>
-                      <a href="#" class="btn btn-primary">Opret</a>
-                    </div>
+        </header>
+        <div class="menu">
+            <div class="menu-item">
+                <div class="icon">
+                    <img src="./img/indbakke.png" alt="Indbakke">
                 </div>
+                <div class="title">indbakke</div>
             </div>
-
+            <div class="menu-item" href="/moveStock">
+                <div class="icon">
+                    <img src="./img/vareflyt.png" alt="Vareflyt">
+                </div>
+                <div class="title">vareflyt</div>
+            </div>
+            <div class="menu-item">
+                <div class="icon">
+                    <img src="./img/lagerstatus.png" alt="Lagerstatus">
+                </div>
+                <div class="title">lagerstatus</div>
+            </div>
+            <div class="menu-item">
+                <div class="icon">
+                    <img src="./img/logud.png" alt="Log af">
+                </div>
+                <div class="title">log af</div>
+            </div>
         </div>
     </div>
-    
-    <!-- Your content goes here -->
-    
 </body>
 </html>

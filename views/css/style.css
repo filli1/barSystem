@@ -1,9 +1,143 @@
-.indexPage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #7BACA3; /* Adjust color to match your specific shade */
 }
-.centered-row {
-    justify-content: center;
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+}
+
+.logo img {
+    width: 100px; /* Adjust based on actual size */
+}
+
+.greeting {
+    font-size: 24px;
+    color: white;
+    margin-top: 10px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 20px;
+}
+
+.menu-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.icon img {
+    width: 50px; /* Adjust based on actual size */
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+
+/* #e7e7e7 */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #8AB4A6; /* Same as the main page */
+    color: white;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-arrow {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 40px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.product-name, .product-quantity {
+    flex: 1;
+    text-align: center;
+}
+
+.stock-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stock-item {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    flex: 1;
+}
+
+.confirm-button, .scanner button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.barcode img {
+    width: 100%;
+    margin-top: 10px;
 }

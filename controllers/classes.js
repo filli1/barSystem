@@ -68,33 +68,13 @@ class Product {
         });
     });
   }
-
-  getProductDetails() {
-    return {
-      name: this.name,
-      salesPrice: this.salesPrice,
-      purchacePrice: this.purchacePrice,
-      type: this.type,
-    };
-  }
-
-  getTotalStock(stocks) {
-    let total = 0;
-    let data = {};
-    for (let stock of stocks) {
-      data[stock.location.name] = stock.getProductAmount(this.name);
-      total += stock.getProductAmount(this.name);
-    }
-    return { total, data };
-  }
 }
 
 class Location {
-  constructor(name, isBar, capacity) {
+  constructor(name, isBar) {
     this.id = null;
     this.name = name;
     this.isBar = isBar;
-    this.capacity = capacity;
   }
 
   // Initialize the location asynchronously
@@ -104,7 +84,6 @@ class Location {
       db.run(`CREATE TABLE IF NOT EXISTS locations (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT,
-          max_capacity INTEGER,
           bar BOOLEAN
         )`, err => {
           if (err) {
@@ -113,8 +92,8 @@ class Location {
             return;
           }
 
-          db.run(`INSERT INTO locations (name, max_capacity, bar) VALUES (?, ?, ?)`,
-            [this.name, this.capacity, this.isBar], function (err) {
+          db.run(`INSERT INTO locations (name, bar) VALUES (?, ?)`,
+            [this.name, this.isBar], function (err) {
               if (err) {
                 console.error('Error inserting new location:', err.message);
                 callback(err);
@@ -135,46 +114,85 @@ class Location {
 }
 
 class Stock {
-  constructor(location) {
-    if (!(location instanceof Location)) {
-      throw new Error("Invalid location - must be an instance of Location");
-    }
-    this.location = location;
-    this.inventory = {}; // This will store Product instances as keys and their quantities as values
+  constructor(locationID, productID, quantity = 0, minQuantity = 0, maxQuantity) {
+    // if (!(location instanceof Location) && !(product  instanceof Product)) {
+    //   throw new Error("Invalid object(s) - must be an instance of the Location and Product classes");
+    // }
+    this.location = locationID;
+    this.product = productID;
+    this.quantity = quantity;
+    this.minQuantity = minQuantity;
+    this.maxQuantity = maxQuantity;
   }
 
-  addStock(product, amount) {
-    if (!(product instanceof Product)) {
-      throw new Error("Invalid product - must be an instance of Product");
-    }
-    if (!this.inventory[product.name]) {
-      this.inventory[product.name] = {
-        product: product,
-        quantity: 0,
-      };
-    }
-    this.inventory[product.name].quantity += amount;
+  init(callback) {
+    const db = openDatabase();
+    db.serialize(() => {
+      db.run(`CREATE TABLE IF NOT EXISTS stock (
+          locationID INTEGER,
+          productID INTEGER,
+          quantity INTEGER,
+          min_quantity INTEGER,
+          max_quantity INTEGER,
+          FOREIGN KEY(productID) REFERENCES products(id),
+          FOREIGN KEY(locationID) REFERENCES locations(id),
+          PRIMARY KEY (locationID, productID)
+        )`, err => {
+          if (err) {
+            console.error('Error creating table:', err.message);
+            callback(err);
+            return;
+          }
+
+          db.run(`INSERT INTO stock (locationID, productID, quantity, min_quantity, max_quantity) VALUES (?, ?, ?, ?, ?)`,
+            [this.location, this.product, this.quantity, this.minQuantity, this.maxQuantity], function (err) {
+              if (err) {
+                console.error('Error inserting new instance of stock:', err.message);
+                callback(err);
+              }
+                db.close((err) => {
+                  if (err) {
+                    console.error('Error closing database:', err.message);
+                  }
+                  callback(null);  // Callback with the id after db is closed
+                });
+              } 
+          );
+        });
+    });
   }
 
-  takeStock(productName, amount) {
-    if (
-      this.inventory[productName] &&
-      this.inventory[productName].quantity >= amount
-    ) {
-      this.inventory[productName].quantity -= amount;
-      if (this.inventory[productName].quantity === 0) {
-        delete this.inventory[productName];
-      }
-    } else {
-      throw new Error("Not enough stock or product does not exist");
-    }
+  getStock(callback) {
+    const db = openDatabase();
+    db.serialize(() => {
+      db.get(`SELECT * FROM stock WHERE productID = ? AND locationID = ?`, [this.product, this.location], (err, row) => {
+        if (err) {
+          console.error('Error retrieving stock:', err.message);
+          callback(err);
+          return;
+        }
+        console.log('Stock retrieved successfully');
+        callback(null, row);
+      });
+    });
   }
 
-  getProductAmount(productName) {
-    return this.inventory[productName]
-      ? this.inventory[productName].quantity
-      : 0;
+  adjustStock(amount, callback) {
+    const db = openDatabase();
+    db.serialize(() => {
+      db.run(`UPDATE stock SET quantity = quantity + ? WHERE productID = ? AND locationID = ?`, 
+        [amount, this.product, this.location], function (err) {
+            if (err) {
+                console.error('Error updating stock:', err.message);
+                callback(err);
+                return;
+            }
+            console.log(`Updated ${this.changes} rows`);
+            callback(null, this.changes); // Pass the number of changed rows to the callback
+        });
+    });
   }
+
 }
 
 module.exports = {

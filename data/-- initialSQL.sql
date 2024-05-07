@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS products (
 CREATE TABLE IF NOT EXISTS locations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    max_capacity INTEGER,
     bar BOOLEAN
 );
 
@@ -34,3 +33,5 @@ CREATE TABLE IF NOT EXISTS stock (
 );
 
 DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS locations;
+DROP TABLE IF EXISTS stock;
