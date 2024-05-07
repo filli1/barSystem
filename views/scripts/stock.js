@@ -1,5 +1,3 @@
-const { updateStock } = require("../../controllers/stock.controllers");
-
 async function retrieveLocations() {
     let locations;
     try {
