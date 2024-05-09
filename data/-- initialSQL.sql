@@ -35,3 +35,7 @@ CREATE TABLE IF NOT EXISTS stock (
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS stock;
+DELETE FROM stock
+SELECT * FROM stock
+
+UPDATE locations SET name = 'Kælder' WHERE name = 'kaelder'

@@ -141,7 +141,9 @@ exports.createStock = async (req, res) => {
 
 exports.updateStock = async (req, res) => {
     const { productID, locationID, amount } = req.body;
-    let stock = new Stock(productID, locationID, 0, 0, 0);
+    console.log(req.body)
+    console.log(productID, locationID)
+    let stock = new Stock(locationID, productID, 0, 0, 0);
 
     const updateCallback = (err, changes) => {
         if (err) {
@@ -156,8 +158,9 @@ exports.updateStock = async (req, res) => {
 }
 
 exports.getStock = async (req, res) => {
-    const { productID, locationID } = req.body;
-    let stock = new Stock(productID, locationID, 0, 0, 0);
+    const { locationID, productID } = req.query;
+    console.log(locationID, productID)
+    let stock = new Stock(locationID, productID, 0, 0, 0);
 
     const getCallback = (err, row) => {
         if (err) {

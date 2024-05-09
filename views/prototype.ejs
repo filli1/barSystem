@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klikbar prototype</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<style>
+    html, body {
+    height: 100%; /* This ensures that the html and body tags take up the full height of the viewport */
+    margin: 0;   /* Removes default margin */
+    padding: 0;  /* Removes default padding */
+    overflow: hidden; /* Prevents scrolling within the body if the iframe is exactly the same height */
+    }
+
+    iframe {
+        display: block; /* Removes any extra space below the iframe, ensuring it fits exactly into its container */
+        width: 100%;    /* Takes the full width of the body */
+        height: 100%;   /* Takes the full height of the body */
+        border: none;   /* Optional: Removes the border around the iframe */
+    }
+
+    .back-arrow {
+        position: fixed;  /* Makes the back arrow stay in a fixed position relative to the viewport */
+        top: 20px;       /* Distance from the top of the viewport */
+        left: 20px;      /* Distance from the left side of the viewport */
+        background-color: #fff; /* Background color of the arrow */
+        color: #333;     /* Color of the arrow icon */
+        padding: 10px;   /* Padding around the arrow for better touch target size */
+        text-decoration: none; /* Removes underline from the link */
+        font-size: 24px; /* Sets the size of the arrow */
+        border-radius: 50%; /* Makes the background circle or rounded */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adds shadow for better visibility over content */
+        z-index: 1000; /* Ensures the arrow is above all other content */
+    }
+
+</style>
+<body>
+    <a href="/" class="back-arrow">&#x2190;</a>
+    <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FF0ZJgmvOd6qrWY4YQ3hegz%2FGimle%3Fpage-id%3D0%253A1%26type%3Ddesign%26node-id%3D7-15%26viewport%3D-2030%252C678%252C0.78%26t%3DH25OfMMbYqiKfBjc-1%26scaling%3Dscale-down%26starting-point-node-id%3D7%253A3%26mode%3Ddesign" style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="100%" allowfullscreen></iframe>
+</body>
+</html>

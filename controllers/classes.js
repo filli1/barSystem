@@ -115,9 +115,6 @@ class Location {
 
 class Stock {
   constructor(locationID, productID, quantity = 0, minQuantity = 0, maxQuantity) {
-    // if (!(location instanceof Location) && !(product  instanceof Product)) {
-    //   throw new Error("Invalid object(s) - must be an instance of the Location and Product classes");
-    // }
     this.location = locationID;
     this.product = productID;
     this.quantity = quantity;
@@ -144,21 +141,22 @@ class Stock {
             return;
           }
 
-          db.run(`INSERT INTO stock (locationID, productID, quantity, min_quantity, max_quantity) VALUES (?, ?, ?, ?, ?)`,
-            [this.location, this.product, this.quantity, this.minQuantity, this.maxQuantity], function (err) {
-              if (err) {
-                console.error('Error inserting new instance of stock:', err.message);
-                callback(err);
-              }
-                db.close((err) => {
-                  if (err) {
-                    console.error('Error closing database:', err.message);
-                  }
-                  callback(null);  // Callback with the id after db is closed
-                });
-              } 
-          );
+          this.insertStock(callback);
         });
+    });
+  }
+
+  insertStock(callback) {
+    const db = openDatabase();
+    db.run(`INSERT INTO stock (locationID, productID, quantity, min_quantity, max_quantity) VALUES (?, ?, ?, ?, ?)`,
+      [this.location, this.product, this.quantity, this.minQuantity, this.maxQuantity], function (err) {
+        if (err) {
+          console.error('Error inserting new instance of stock:', err.message);
+          callback(err);
+        } else {
+          callback(null);  // Callback with success
+        }
+        db.close();
     });
   }
 
@@ -180,16 +178,46 @@ class Stock {
   adjustStock(amount, callback) {
     const db = openDatabase();
     db.serialize(() => {
-      db.run(`UPDATE stock SET quantity = quantity + ? WHERE productID = ? AND locationID = ?`, 
-        [amount, this.product, this.location], function (err) {
-            if (err) {
+      db.get(`SELECT quantity FROM stock WHERE productID = ? AND locationID = ?`, [this.product, this.location], (err, row) => {
+        if (err) {
+          console.error('Error finding stock:', err.message);
+          callback(err);
+          return;
+        }
+        if (row) {
+          let newQuantity = row.quantity + amount;
+          if (newQuantity <= 0) {
+            db.run(`DELETE FROM stock WHERE productID = ? AND locationID = ?`, [this.product, this.location], function(err) {
+              if (err) {
+                console.error('Error deleting stock:', err.message);
+                callback(err);
+                return;
+              }
+              console.log('Stock deleted successfully');
+              callback(null);
+            });
+          } else {
+            db.run(`UPDATE stock SET quantity = ? WHERE productID = ? AND locationID = ?`, [newQuantity, this.product, this.location], function(err) {
+              if (err) {
                 console.error('Error updating stock:', err.message);
                 callback(err);
                 return;
-            }
-            console.log(`Updated ${this.changes} rows`);
-            callback(null, this.changes); // Pass the number of changed rows to the callback
-        });
+              }
+              console.log(`Stock updated successfully. New quantity: ${newQuantity}`);
+              callback(null);
+            });
+          }
+        } else {
+          // Stock does not exist, so insert it if the amount is greater than zero
+          if (amount > 0) {
+            this.quantity = amount; // Set this.quantity to the amount trying to add
+            this.insertStock(callback);
+          } else {
+            console.log('No stock to insert since the amount is zero or negative');
+            callback(null);
+          }
+        }
+      });
     });
   }
 
