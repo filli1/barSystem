@@ -121,7 +121,7 @@ exports.findByEAN = async (req, res) => {
 
 exports.createStock = async (req, res) => {
     const {productID, locationID, quantity, maxQuantity, minQuantity} = req.body;
-    const stock = new Stock(productID, locationID, quantity, minQuantity, maxQuantity);
+    const stock = new Stock(locationID, productID, quantity, minQuantity, maxQuantity);
 
     stock.init((err, id) => {
         if (err) {
