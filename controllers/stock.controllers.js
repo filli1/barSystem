@@ -16,7 +16,6 @@ function openDatabase() {
     return db;
   }
 
-//it should retrieve the classes from the classes.js file
 const { Product, Location, Stock } = require("./classes");
 
 exports.createLocation = async (req, res) => {

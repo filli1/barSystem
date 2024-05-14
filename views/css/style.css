@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #7BACA3; /* Adjust color to match your specific shade */
+    background-color: #7BACA3;
 }
 
 .container {
@@ -16,7 +16,7 @@ header {
 }
 
 .logo img {
-    width: 100px; /* Adjust based on actual size */
+    width: 100px;
 }
 
 .greeting {
@@ -39,7 +39,7 @@ header {
 }
 
 .icon img {
-    width: 50px; /* Adjust based on actual size */
+    width: 50px;
 }
 
 .title {
@@ -48,14 +48,11 @@ header {
     color: #333;
 }
 
-
-/* #e7e7e7 */
-
 body, html {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #8AB4A6; /* Same as the main page */
+    background-color: #8AB4A6;
     color: white;
 }
 
@@ -147,11 +144,10 @@ select {
     display: none;
 }
 
-
 .bubble {
     position: absolute;
-    top: 0%; /* Adjust as needed */
-    right: -10px; /* Adjust as needed to position correctly */
+    top: 0%;
+    right: -10px;
     background-color: #f8d7da;
     color: #721c24;
     border-radius: 10px;
@@ -163,8 +159,8 @@ select {
 
 .bubble2 {
     position: absolute;
-    top: 50%; /* Adjust as needed */
-    left: 450px; /* Adjust as needed to position correctly */
+    top: 50%;
+    left: 450px;
     background-color: #c5ffa1;
     color: #000000;
     border-radius: 10px;

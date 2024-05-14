@@ -11,16 +11,16 @@ async function retrieveLocations() {
         locations = data.locations;
     } catch (error) {
         console.error('Error:', error);
-        return; // Early return on error to avoid further execution
+        return; 
     }
 
     const locationLists = document.querySelectorAll('.location-list');
     locationLists.forEach(locationlist => {
         locations.forEach(location => {
             let option = document.createElement('option');
-            option.value = location.id; // Set the value on the option element
-            option.innerHTML = location.name; // Set the display text
-            locationlist.appendChild(option); // Append the option to the select element
+            option.value = location.id; 
+            option.innerHTML = location.name; 
+            locationlist.appendChild(option); 
         });
     });
 }
@@ -38,16 +38,16 @@ async function retrieveProducts() {
         products = data.products;
     } catch (error) {
         console.error('Error:', error);
-        return; // Early return on error to avoid further execution
+        return; 
     }
 
     const productLists = document.querySelectorAll('.product-list');
     productLists.forEach(productlist => {
         products.forEach(product => {
             let option = document.createElement('option');
-            option.value = product.id; // Set the value on the option element
-            option.innerHTML = product.name; // Set the display text
-            productlist.appendChild(option); // Append the option to the select element
+            option.value = product.id; 
+            option.innerHTML = product.name; 
+            productlist.appendChild(option);
         });
     });
 }
@@ -66,13 +66,6 @@ updateStockDisplay = async (locationID, productID) => {
     } catch (error) {
         console.error('Error:', error);
     }
-
-    //For each location, retrieve stock for the selected product, but first when the user selects the product the first time
-    //The product selector shuld only be seen when from and to locations are selected
-    //the stock display should only be seen when the product is selected
-    //Every time one of the locations or products is changed, the stock display should be updated
-    //The quantity selector should only be in positive numbers
-    //The updateStock PUT endpoint should be called when the user clicks the update button
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -132,12 +125,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     })
 
     quantityBox.addEventListener('input', () => {
-        // Ensure we're working with numbers by parsing them
         const quantity = parseInt(quantityBox.value, 10) || 0; // Default to 0 if NaN
         const currentFromStock = fromStock || 0;
         const currentToStock = toStock || 0;
     
-        // Perform numeric operations
         locationFromStock.innerHTML = currentFromStock - quantity;
         locationToStock.innerHTML = currentToStock + quantity;
     });
@@ -177,7 +168,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     
         if (allUpdatesSuccessful) {
             console.log("All updates were successful", updateResults);
-            // Optionally do something with updateResults
         } else {
             console.error("One or more updates failed");
         }
