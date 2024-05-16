@@ -31,6 +31,10 @@ app.get("/prototype", (req, res) => {
   res.render(__dirname + "/views/prototype.ejs");
 })
 
+app.get("/predictions", (req, res) => {
+  res.render(__dirname + "/views/predictions.ejs");
+})
+
 //Require routes
 const stock = require('./routes/stock.routes');
 app.use('/api/stock', stock);
